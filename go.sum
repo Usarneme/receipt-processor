@@ -1,0 +1,4 @@
+github.com/Usarneme/receipt-processor v0.0.0-20241111181711-4348f9f63de7 h1:3jBJWc1Sv22fj2s7X9KwyEMpr0wBraUcr7eGADisFP8=
+github.com/Usarneme/receipt-processor v0.0.0-20241111181711-4348f9f63de7/go.mod h1:5oPQldioqtz3NhBerWzD8Ku4v7o2LJ1SCTF+s1TDwUc=
+github.com/gorilla/mux v1.8.1 h1:TuBL49tXwgrFYWhqrNgrUNEY92u81SPhu7sTdzQEiWY=
+github.com/gorilla/mux v1.8.1/go.mod h1:AKf9I4AEqPTmMytcMc0KkNouC66V3BtZ4qD5fmWSiMQ=
