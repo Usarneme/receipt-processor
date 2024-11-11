@@ -1,16 +1,16 @@
 package models
 
-// TODO: imports, Item structcal
 import (
 	"errors"
 	"strconv"
 )
+
 type Receipt struct {
 	ID          string    `json:"id"`
 	Retailer    string    `json:"retailer"`
 	PurchaseDate string   `json:"purchaseDate"`
 	PurchaseTime string   `json:"purchaseTime"`
-	Items       []string	`json:"items"` // TODO: make arry of Items
+	Items       []Item		`json:"items"`
 	Total       string    `json:"total"`
 }
 
