@@ -2,14 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
-	"errors"
-	"fmt"
-	"log"
 	"net/http"
 	"strconv"
 
-	"github.com/gorilla/mux"
 	"github.com/Usarneme/receipt-processor/models"
+	"github.com/gorilla/mux"
 )
 
 type ReceiptHandler struct {
@@ -39,4 +36,16 @@ func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) 
 	json.NewEncoder(w).Encode(map[string]string{"id": receipt.ID})
 }
 
-func (h *ReceiptHandler) Get
+func (h *ReceiptHandler) GetPoints(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	receipt, ok := h.receipts[id]
+	if !ok {
+		http.Error(w, "Receipt not found", http.StatusNotFound)
+		return
+	}
+
+	points := receipt.CalculatePoints()
+	json.NewEncoder(w).Encode(map[string]int64{"points": points})
+}
