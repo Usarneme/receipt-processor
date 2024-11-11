@@ -22,4 +22,21 @@ func NewReceiptHandler() *ReceiptHandler {
 	}
 }
 
+func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) {
+	var receipt models.Receipt
+	err := json.NewDecoder(r.Body).Decode(&receipt)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := receipt.Validate(); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	receipt.ID = strconv.Itoa(len(h.receipts) + 1)
+	h.receipts[receipt.ID] = receipt
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"id": receipt.ID})
+}
+
 func (h *ReceiptHandler) Get
