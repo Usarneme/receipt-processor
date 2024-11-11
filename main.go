@@ -10,11 +10,7 @@ import (
 )
 
 func main() {
-	receiptHandler, err := handlers.NewReceiptHandler()
-	if err != nil {
-		log.Fatal(err)
-	}
-
+	receiptHandler := handlers.NewReceiptHandler()
 	router := mux.NewRouter()
 
 	// Endpoints
