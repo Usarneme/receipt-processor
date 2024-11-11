@@ -1,6 +1,6 @@
 package models
 
-// TODO: imports, Item struct
+// TODO: imports, Item structcal
 import (
 	"errors"
 	"strconv"
