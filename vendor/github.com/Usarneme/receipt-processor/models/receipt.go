@@ -75,7 +75,7 @@ func (r *Receipt) CalculatePoints() int64 {
 
 	// 10 points if the time of purchase is after 2:00pm and before 4:00pm
 	purchaseTime, _ := time.Parse("15:04", r.PurchaseTime)
-	if purchaseTime.Hour() == 14 {
+	if purchaseTime.Hour() > 14 && purchaseTime.Hour() < 16 {
 		points += 10
 	}
 
