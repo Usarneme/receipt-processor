@@ -3,20 +3,32 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"strconv"
 
 	"github.com/Usarneme/receipt-processor/models"
+	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 )
 
 type ReceiptHandler struct {
-	receipts map[string]models.Receipt
+	Receipts map[string]models.Receipt
 }
 
-func NewReceiptHandler() *ReceiptHandler {
-	return &ReceiptHandler{
-		receipts: make(map[string]models.Receipt),
+func NewReceiptHandler() (*ReceiptHandler, error) {
+	rh := &ReceiptHandler{
+		Receipts: make(map[string]models.Receipt),
 	}
+	if err := rh.init(); err != nil {
+		return nil, err
+	}
+	return rh, nil
+}
+
+func (rh *ReceiptHandler) init() error {
+	// initialization code that may return an error
+	// in this example project it never returns an error
+	// but this format is useful for demonstrating a real world setup that
+	// may have errors and can therefore be tested & guarded against
+	return nil
 }
 
 func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) {
@@ -30,8 +42,8 @@ func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) 
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	receipt.ID = strconv.Itoa(len(h.receipts) + 1)
-	h.receipts[receipt.ID] = receipt
+	receipt.ID = uuid.New().String()
+	h.Receipts[receipt.ID] = receipt
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"id": receipt.ID})
 }
@@ -40,7 +52,7 @@ func (h *ReceiptHandler) GetPoints(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	receipt, ok := h.receipts[id]
+	receipt, ok := h.Receipts[id]
 	if !ok {
 		http.Error(w, "Receipt not found", http.StatusNotFound)
 		return
