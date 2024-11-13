@@ -6,7 +6,7 @@ import (
 
 type Item struct {
 	ShortDescription string `json:"shortDescription"`
-	Price           string `json:"price"`
+	Price            string `json:"price"`
 }
 
 func (i *Item) Validate() error {
