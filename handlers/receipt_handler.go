@@ -10,12 +10,12 @@ import (
 )
 
 type ReceiptHandler struct {
-	receipts map[string]models.Receipt
+	Receipts map[string]models.Receipt
 }
 
 func NewReceiptHandler() (*ReceiptHandler, error) {
 	rh := &ReceiptHandler{
-		receipts: make(map[string]models.Receipt),
+		Receipts: make(map[string]models.Receipt),
 	}
 	if err := rh.init(); err != nil {
 		return nil, err
@@ -43,7 +43,7 @@ func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 	receipt.ID = uuid.New().String()
-	h.receipts[receipt.ID] = receipt
+	h.Receipts[receipt.ID] = receipt
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"id": receipt.ID})
 }
@@ -52,7 +52,7 @@ func (h *ReceiptHandler) GetPoints(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	receipt, ok := h.receipts[id]
+	receipt, ok := h.Receipts[id]
 	if !ok {
 		http.Error(w, "Receipt not found", http.StatusNotFound)
 		return
