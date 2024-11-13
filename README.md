@@ -27,9 +27,10 @@ git clone https://github.com/Usarneme/receipt-processor
 cd receipt-processor
 ```
 
-Build the binary:
+Fetch the dependencies and build the binary:
 
 ```sh
+go mod vendor
 go build main.go
 ```
 
