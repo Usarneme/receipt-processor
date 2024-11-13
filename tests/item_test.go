@@ -19,7 +19,7 @@ func TestNewItem(t *testing.T) {
     }
 }
 
-func TestItemValidate(t *testing.T) {
+func TestItem_Validate(t *testing.T) {
 	item := models.Item{
 		ShortDescription: "Mountain Dew 12PK",
 		Price:           "6.49",
