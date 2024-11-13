@@ -14,6 +14,8 @@ A REST API for processing receipts. This project is built to demonstate creating
 - Go language installed. See instructions here: https://go.dev/doc/install
 - A way to send requests to webservers such as Postman, Insomnia, or cURL.
 
+NOTE: This project was bulit using Go version 1.23. Some of the test files won't compile on earlier versions due to incompatible types with the httptest.ResponseRecorder and http.ResponseWriter. I would suggest using 1.23 if you run into any problems compiling or testing it in another version of Go.
+
 ---
 
 ### Instructions
