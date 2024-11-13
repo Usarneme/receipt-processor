@@ -3,9 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"strconv"
 
 	"github.com/Usarneme/receipt-processor/models"
+	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 )
 
@@ -30,7 +30,7 @@ func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) 
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	receipt.ID = strconv.Itoa(len(h.receipts) + 1)
+	receipt.ID = uuid.New().String()
 	h.receipts[receipt.ID] = receipt
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"id": receipt.ID})
