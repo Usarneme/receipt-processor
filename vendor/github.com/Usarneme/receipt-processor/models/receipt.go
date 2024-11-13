@@ -46,7 +46,7 @@ func (r *Receipt) CalculatePoints() int64 {
 
 	// 50 points if the total is a round dollar amount with no cents
 	total, _ := strconv.ParseFloat(r.Total, 64)
-	if total == math.Floor(total) {
+	if total == float64(int(total)) {
 		points += 50
 	}
 
