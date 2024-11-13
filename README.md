@@ -95,6 +95,18 @@ Replacing 'ccb44dac-54d4-439a-a640-23c785a244ed' with whichever of the IDs you r
 
 ---
 
+### Testing
+
+No production-ready software is complete without testing. For this project I have written smoke tests for initializing the structs and their methods as well as mocking some of the HTTP behavior in receipt handler.
+
+To run the test suite with verbose output, enter the project directory and run:
+
+```sh
+go test -v ./tests/
+```
+
+---
+
 ### Attributions & Packages
 
 - [google/uuid](github.com/google/uuid) - create unique IDs for records
