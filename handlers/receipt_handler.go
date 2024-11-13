@@ -13,10 +13,22 @@ type ReceiptHandler struct {
 	receipts map[string]models.Receipt
 }
 
-func NewReceiptHandler() *ReceiptHandler {
-	return &ReceiptHandler{
+func NewReceiptHandler() (*ReceiptHandler, error) {
+	rh := &ReceiptHandler{
 		receipts: make(map[string]models.Receipt),
 	}
+	if err := rh.init(); err != nil {
+		return nil, err
+	}
+	return rh, nil
+}
+
+func (rh *ReceiptHandler) init() error {
+	// initialization code that may return an error
+	// in this example project it never returns an error
+	// but this format is useful for demonstrating a real world setup that
+	// may have errors and can therefore be tested & guarded against
+	return nil
 }
 
 func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) {
