@@ -6,6 +6,8 @@
 
 A REST API for processing receipts. This project is built to demonstate creating a web service in Go that is able to handle both GET and POST requests and transferring JSON payloads.
 
+Greenhouse public code: e55d104e097bc08de7455aff7d2ee635
+
 ---
 
 ### Requirements
