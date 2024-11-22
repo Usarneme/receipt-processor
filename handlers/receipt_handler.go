@@ -43,6 +43,8 @@ func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 	receipt.ID = uuid.New().String()
+	receipt.Points = receipt.CalculatePoints()
+
 	h.Receipts[receipt.ID] = receipt
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"id": receipt.ID})
@@ -52,12 +54,17 @@ func (h *ReceiptHandler) GetPoints(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
+	err := uuid.Validate(id)
+	if err != nil {
+		http.Error(w, "This is not a valid UUID. Please try again.", http.StatusBadRequest)
+		return
+	}
+
 	receipt, ok := h.Receipts[id]
 	if !ok {
 		http.Error(w, "Receipt not found", http.StatusNotFound)
 		return
 	}
 
-	points := receipt.CalculatePoints()
-	json.NewEncoder(w).Encode(map[string]int64{"points": points})
+	json.NewEncoder(w).Encode(map[string]int64{"points": receipt.Points})
 }

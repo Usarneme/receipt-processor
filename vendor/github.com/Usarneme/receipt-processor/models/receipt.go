@@ -16,6 +16,7 @@ type Receipt struct {
 	PurchaseTime string `json:"purchaseTime"`
 	Items        []Item `json:"items"`
 	Total        string `json:"total"`
+	Points			 int64	`json:"Points"`
 }
 
 func (r *Receipt) Validate() error {
@@ -73,7 +74,7 @@ func (r *Receipt) CalculatePoints() int64 {
 		points += 6
 	}
 
-	// 10 points if the time of purchase is after 2:00pm and before 4:00pm
+	// 10 points if the time of purchase is after 2:00pm (inclusive of 2:00.00pm on the dot) but before 4:00pm (exclusive of 4pm, so <= 3:59.999)
 	purchaseTime, _ := time.Parse("15:04", r.PurchaseTime)
 	if purchaseTime.Hour() >= 14 && purchaseTime.Hour() < 16 {
 		points += 10
